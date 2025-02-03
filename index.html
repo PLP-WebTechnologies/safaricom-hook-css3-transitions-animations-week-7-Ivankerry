@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive and Dynamic Web Page</title>
+    <style>
+        /* Part 1: CSS3 Transitions and Animations */
+
+        /* Hover transition for a button */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.1); /* Button grows slightly on hover */
+        }
+
+        /* Keyframe animation for a banner */
+        @keyframes fadeInSlide {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .banner {
+            width: 100%;
+            height: 50px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            animation: fadeInSlide 1.5s ease-out forwards;
+        }
+
+        /* Keyframe animation for a loading spinner */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        /* Modal and Hidden Class */
+        .hidden {
+            display: none;
+        }
+
+        .modal {
+            display: block;
+            width: 300px;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Part 3: Combining CSS Animations with JavaScript */
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transition: transform 0.5s ease;
+        }
+
+        .animateBox {
+            transform: rotate(45deg);
+            background-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Part 1: Dynamic Content -->
+    <div class="banner">Welcome to the Interactive Web Page</div>
+    
+    <!-- Part 3: Interactive Button -->
+    <button id="animateButton">Click Me</button>
+    <div id="animatedElement" class="box"></div>
+
+    <!-- Part 2: Modal -->
+    <button id="toggleButton">Toggle Modal</button>
+    <div id="myModal" class="modal hidden">
+        <p>This is a modal window!</p>
+        <button onclick="toggleModal()">Close Modal</button>
+    </div>
+
+    <!-- Spinner for Animation -->
+    <div class="spinner"></div>
+
+    <script>
+        // Part 2: JavaScript Functions
+
+        // Function with parameters and return values (calculate area)
+        function calculateArea(length, width) {
+            return length * width;
+        }
+
+        const area = calculateArea(5, 10); // Output will be 50
+        console.log("Area: ", area);
+
+        // Function demonstrating scope (local vs. global variables)
+        let globalVar = "I am global"; // Global variable
+
+        function showScope() {
+            let localVar = "I am local"; // Local variable
+            console.log(globalVar); // Can access global variable
+            console.log(localVar);  // Can access local variable inside the function
+        }
+
+        showScope();
+        console.log(globalVar); // This works because it's global
+        // console.log(localVar);  // Error! Cannot access localVar outside its function
+
+        // Function to toggle modal visibility
+        function toggleModal() {
+            const modal = document.getElementById("myModal");
+            modal.classList.toggle("hidden");
+        }
+
+        // Event listener for button to open/close modal
+        document.getElementById("toggleButton").addEventListener("click", toggleModal);
+
+        // Part 3: JavaScript to trigger and control CSS animations
+        document.getElementById("animateButton").addEventListener("click", function() {
+            const box = document.getElementById("animatedElement");
+            box.classList.add("animateBox");
+        });
+
+        // Resetting the animation when the button is clicked again
+        document.getElementById("animateButton").addEventListener("click", function() {
+            const box = document.getElementById("animatedElement");
+            box.classList.remove("animateBox"); // Remove the class
+            void box.offsetWidth; // Trigger reflow to reset animation
+            box.classList.add("animateBox"); // Re-add the class to restart animation
+        });
+    </script>
+
+</body>
+</html>
